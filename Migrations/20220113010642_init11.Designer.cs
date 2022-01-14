@@ -10,8 +10,8 @@ using ReviewService;
 namespace ReviewService.Migrations
 {
     [DbContext(typeof(KomentDBContext))]
-    [Migration("20211218184000_init1")]
-    partial class init1
+    [Migration("20220113010642_init11")]
+    partial class init11
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,7 +99,13 @@ namespace ReviewService.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");

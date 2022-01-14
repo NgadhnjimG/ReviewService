@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReviewService;
+using ReviewService.Helpers;
 using ReviewService.Models;
 
 namespace ReviewService.Controllers
@@ -32,6 +33,7 @@ namespace ReviewService.Controllers
 
                 var reviewslist = this.dbConnection.StarReview.Where(x => x.DoctorId == doc.ID).ToList();
                 var count = reviewslist.Count;
+                if (count == 0) count = 1;
                 var sum = 0.0;
                 foreach (var rev in reviewslist)
                 {
@@ -104,12 +106,24 @@ namespace ReviewService.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<StarReview>> PostStarReview(StarReview starReview)
+        public async Task<ActionResult<bool>> PostStarReview(ReviewHelper reviewHelper)
         {
-            dbConnection.StarReview.Add(starReview);
+            StarReview star = new StarReview();
+            star.DoctorId = reviewHelper.DoctorId;
+            star.Review = reviewHelper.StarRate;
+            star.CreatedAt = DateTime.Now;
+            star.UserId = 1; 
+            dbConnection.StarReview.Add(star);
+
+            Comment comment = new Comment();
+            comment.CreatedAt = DateTime.Now;
+            comment.DoctorId = reviewHelper.DoctorId;
+            comment.UserId = 1;
+            comment.CommentContent = reviewHelper.Comment;
+            dbConnection.Comments.Add(comment);
             await dbConnection.SaveChangesAsync();
 
-            return CreatedAtAction("GetStarReview", new { id = starReview.ID }, starReview);
+            return true;
         }
 
         // DELETE: api/StarReviews/5

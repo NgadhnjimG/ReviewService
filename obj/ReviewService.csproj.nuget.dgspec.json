@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\PC\\source\\repos\\E.H\\ReviewService\\ReviewService.csproj": {}
+    "C:\\Users\\PC\\source\\repos\\Mjeket\\ReviewService\\ReviewService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\PC\\source\\repos\\E.H\\ReviewService\\ReviewService.csproj": {
+    "C:\\Users\\PC\\source\\repos\\Mjeket\\ReviewService\\ReviewService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\PC\\source\\repos\\E.H\\ReviewService\\ReviewService.csproj",
+        "projectUniqueName": "C:\\Users\\PC\\source\\repos\\Mjeket\\ReviewService\\ReviewService.csproj",
         "projectName": "ReviewService",
-        "projectPath": "C:\\Users\\PC\\source\\repos\\E.H\\ReviewService\\ReviewService.csproj",
+        "projectPath": "C:\\Users\\PC\\source\\repos\\Mjeket\\ReviewService\\ReviewService.csproj",
         "packagesPath": "C:\\Users\\PC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\PC\\source\\repos\\E.H\\ReviewService\\obj\\",
+        "outputPath": "C:\\Users\\PC\\source\\repos\\Mjeket\\ReviewService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\PC\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -52,13 +52,17 @@
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.22, )"
+              "version": "[3.1.21, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.22, )"
+              "version": "[3.1.21, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.5, )"
             }
           },
           "imports": [

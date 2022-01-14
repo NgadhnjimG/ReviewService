@@ -10,7 +10,7 @@ using ReviewService;
 namespace ReviewService.Migrations
 {
     [DbContext(typeof(KomentDBContext))]
-    [Migration("20211218182854_init")]
+    [Migration("20220112004531_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,17 @@ namespace ReviewService.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DoctorId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Comments");
                 });
@@ -64,10 +74,20 @@ namespace ReviewService.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("DoctorId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Review")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("DoctorId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("StarReview");
                 });
@@ -79,12 +99,40 @@ namespace ReviewService.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("ReviewService.Models.Comment", b =>
+                {
+                    b.HasOne("ReviewService.Models.Doctor", "Doctor")
+                        .WithMany("Comments")
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("ReviewService.Models.User", "User")
+                        .WithMany("Comments")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ReviewService.Models.StarReview", b =>
+                {
+                    b.HasOne("ReviewService.Models.Doctor", "Doctor")
+                        .WithMany("StarReview")
+                        .HasForeignKey("DoctorId");
+
+                    b.HasOne("ReviewService.Models.User", "User")
+                        .WithMany("StarReview")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -23,6 +23,7 @@ namespace ReviewService
 
         public IConfiguration Configuration { get; }
 
+        private readonly string _corsPolicy = "AllowAllOrigins";
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -31,6 +32,25 @@ namespace ReviewService
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: _corsPolicy,
+                        corsBuilder =>
+                        {
+                            corsBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                        }
+                    );
+
+                //options.AddPolicy(name: "AllowUBTSite",
+                //        corsBuilder =>
+                //        {
+                //            corsBuilder.WithOrigins("https://www.ubt-uni.net/").WithMethods("POST");
+                //        }
+                //    );
+
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +63,7 @@ namespace ReviewService
 
             app.UseHttpsRedirection();
 
+            app.UseCors(_corsPolicy);//cross site validation
             app.UseRouting();
 
             app.UseAuthorization();
